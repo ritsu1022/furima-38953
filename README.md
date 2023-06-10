@@ -17,6 +17,7 @@
 - has_many   :items
 - has_many   :comments
 - has_many   :orders
+- belongs_to :histories
 
 
 ## itemsテーブル
@@ -26,7 +27,7 @@
 | explanation        | text       | null: false                     |
 | category_id        | integer    | null: false                     |
 | condition_id       | integer    | null: false                     |
-| shipping_fee       | integer    | null: false                     |
+| shipping_fee_id    | integer    | null: false                     |
 | region_id          | integer    | null: false                     |
 | lead_time_id       | integer    | null: false                     |
 | price              | integer    | null: false                     |
@@ -37,6 +38,7 @@
 - belongs_to : user
 - has_many   : comments
 - has_one    : order
+- has_one    : histories
 
 
 ## commentsテーブル
@@ -56,11 +58,13 @@
 | ------------------ | ---------- | ------------------------------ |
 | user               | references | null: false, foreign_key: true |
 | item               | references | null: false, foreign_key: true |
+| order              | references | null: false, foreign_key: true |
 
 ### Association
 
-- belongs_to : user
+- has_one : user
 - belongs_to : item
+- has_one    : orders
 
 
 ## ordersテーブル
@@ -72,9 +76,9 @@
 | house_number       | string     | null: false                     |
 | building_name      | string     |                                 |
 | phone_number       | string     | null: false                     |
-| user               | references | null: false, foreign_key: true  |
+| history            | references | null: false, foreign_key: true  |
+
 
 ### Association
 
-- belongs_to : user
-- belongs_to : item
+- belongs_to : history
