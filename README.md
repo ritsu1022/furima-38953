@@ -16,8 +16,7 @@
 
 - has_many   :items
 - has_many   :comments
-- has_many   :orders
-- belongs_to :histories
+- has_many   :histories
 
 
 ## itemsテーブル
@@ -37,7 +36,6 @@
 
 - belongs_to : user
 - has_many   : comments
-- has_one    : order
 - has_one    : histories
 
 
@@ -58,13 +56,12 @@
 | ------------------ | ---------- | ------------------------------ |
 | user               | references | null: false, foreign_key: true |
 | item               | references | null: false, foreign_key: true |
-| order              | references | null: false, foreign_key: true |
 
 ### Association
 
-- has_one : user
+- belongs_to : user
 - belongs_to : item
-- has_one    : orders
+- has_one    : order
 
 
 ## ordersテーブル
