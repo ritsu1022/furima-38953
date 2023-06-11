@@ -36,7 +36,7 @@
 
 - belongs_to : user
 - has_many   : comments
-- has_one    : histories
+- has_one    : history
 
 
 ## commentsテーブル
