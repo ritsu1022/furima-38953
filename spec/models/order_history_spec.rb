@@ -38,6 +38,11 @@ RSpec.describe OrderHistory, type: :model do
       @order_history.valid?
       expect(@order_history.errors.full_messages).to include("Region can't be blank")
     end
+    it 'region_idに「---」が選択されている場合は登録できないこと' do
+      @order_history.region_id = "1"
+      @order_history.valid?
+      expect(@order_history.errors.full_messages).to include("Region can't be blank")
+    end
     it "municipalitiesが空では登録できないこと" do
       @order_history.municipalities = ""
       @order_history.valid?
@@ -58,10 +63,30 @@ RSpec.describe OrderHistory, type: :model do
       @order_history.valid?
       expect(@order_history.errors.full_messages).to include ('Phone number is too short (minimum is 10 characters)')
     end
-    it "phone_numberは半角数字以外だと登録できない事" do
+    it "phone_numberは11桁より多いと登録できないこと" do
+      @order_history.phone_number = "090123456789"
+      @order_history.valid?
+      expect(@order_history.errors.full_messages).to include ('Phone number is too long (maximum is 11 characters)')
+    end
+    it "phone_numberは半角数字以外だと登録できないこと" do
       @order_history.phone_number = "０９０１２３４５６７"
       @order_history.valid?
       expect(@order_history.errors.full_messages).to include('Phone number is invalid')
+    end
+    it "phone_numberは英数混合だと登録できないこと" do
+      @order_history.phone_number = "aaa00000000"
+      @order_history.valid?
+      expect(@order_history.errors.full_messages).to include('Phone number is invalid')
+    end
+    it 'user_id（購入者）が空だと登録できないこと' do
+      @order_history.user_id = nil
+      @order_history.valid?
+      expect(@order_history.errors.full_messages).to include("User can't be blank")
+    end
+    it 'item_id（購入商品）が空だと登録できないこと' do
+      @order_history.item_id = nil
+      @order_history.valid?
+      expect(@order_history.errors.full_messages).to include("Item can't be blank")
     end
   end
 end
