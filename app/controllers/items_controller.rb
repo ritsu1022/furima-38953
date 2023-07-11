@@ -24,6 +24,7 @@ class ItemsController < ApplicationController
 
   def edit
     redirect_to root_path unless current_user.id == @item.user_id
+    move_to_top
   end
 
   def update
@@ -51,4 +52,11 @@ class ItemsController < ApplicationController
   def set_item
     @item = Item.find(params[:id])
   end
+
+  def move_to_top
+    if @item.history != nil
+      redirect_to root_path
+    end
+  end
+
 end
