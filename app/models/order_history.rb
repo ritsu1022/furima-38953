@@ -4,12 +4,11 @@ class OrderHistory
                 :user_id, :item_id, :token
 
   with_options presence: true do
-    VALID_POSTAL_CODE_REGEX = /\A\d{3}[-]?\d{4}\z/
-    validates    :zip, format: { with: VALID_POSTAL_CODE_REGEX }
+    VALID_POSTAL_CODE_REGEX = /\A\d{3}-\d{4}\z/
+    validates    :zip, format: { with: VALID_POSTAL_CODE_REGEX, allow_blank: true, message: 'is invalid' }
     validates    :municipalities
     validates    :house_number
-    validates    :phone_number, numericality: { only_integer: true, message: 'is invalid', allow_blank: true },
-                                length: { minimum: 10, maximum: 11}
+    validates    :phone_number, numericality: { only_integer: true, message: 'is invalid', allow_blank: true }, length: { minimum: 10, maximum: 11, allow_blank: true}
     validates    :user_id
     validates    :item_id
     validates    :token
