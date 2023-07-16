@@ -24,7 +24,6 @@ class ItemsController < ApplicationController
 
   def edit
     redirect_to root_path if (current_user.id != @item.user_id) || (@item.history != nil)
-    
   end
 
   def update
